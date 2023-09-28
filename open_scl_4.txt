@@ -1,0 +1,115 @@
+# importing required libraries
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+
+x = bruh_points.T[0]
+y = bruh_points.T[1]
+z = bruh_points.T[2]
+
+planes_data = [[[[x[5], y[5], z[5]],    [x[17], y[17], z[17]], [x[2], y[2], z[2]]],
+                [[x[13], y[13], z[13]], [x[0], y[0], z[0]],    [x[3], y[3], z[3]]],
+                [[x[23], y[23], z[23]], [x[27], y[27], z[27]], [x[11], y[11], z[11]]],
+                [[x[30], y[30], z[30]], [x[20], y[20], z[20]], [x[21], y[21], z[21]]],
+                [[x[12], y[12], z[12]], [x[31], y[31], z[31]], [x[18], y[18], z[18]]],
+                [[x[22], y[22], z[22]], [x[26], y[26], z[26]], [x[14], y[14], z[14]]]],
+                
+                [[[x[20], y[20], z[20]],[x[10], y[10], z[10]], [x[5], y[5], z[5]]],
+                [[x[28], y[28], z[28]], [x[7], y[7], z[7]],    [x[25], y[25], z[25]]],
+                [[x[30], y[30], z[30]], [x[17], y[17], z[17]], [x[2], y[2], z[2]]],
+                [[x[29], y[29], z[29]], [x[27], y[27], z[27]], [x[14], y[14], z[14]]],
+                [[x[31], y[31], z[31]], [x[19], y[19], z[19]], [x[6], y[6], z[6]]],
+                [[x[26], y[26], z[26]], [x[11], y[11], z[11]], [x[16], y[16], z[16]]]],
+                
+                [[[x[30], y[30], z[30]],[x[29], y[29], z[29]], [x[20], y[20], z[20]]],
+                [[x[13], y[13], z[13]], [x[25], y[25], z[25]], [x[12], y[12], z[12]]],
+                [[x[15], y[15], z[15]], [x[14], y[14], z[14]], [x[10], y[10], z[10]]],
+                [[x[5], y[5], z[5]],    [x[16], y[16], z[16]], [x[17], y[17], z[17]]],
+                [[x[7], y[7], z[7]],    [x[19], y[19], z[19]], [x[18], y[18], z[18]]],
+                [[x[2], y[2], z[2]],    [x[11], y[11], z[11]], [x[9], y[9], z[9]]]]
+                ]
+
+def find_meshgrid(num, count):
+    if count == 0:
+        if num == 0:
+            return np.meshgrid(np.linspace(-1, 0, 10), np.linspace(-1, 1, 10))
+        elif num == 5:
+            return np.meshgrid(np.linspace(0, 1, 10), np.linspace(-1, 1, 10))
+        elif num == 1:
+            return np.meshgrid(np.linspace(-1, 0.62, 10), np.linspace(-1, 1, 10))
+        elif num == 4:
+            return np.meshgrid(np.linspace(-0.62, 1, 10), np.linspace(-1, 1, 10))
+        else:
+            return np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-1, 1, 10))
+    elif count == 1:
+        if num == 0:
+            return np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-1, -0.38, 10))
+        elif num == 5:
+            return np.meshgrid(np.linspace(-1, 1, 10), np.linspace(0.38, 1, 10))
+        elif num == 1:
+            return np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-1, 0, 10))
+        elif num == 4:
+            return np.meshgrid(np.linspace(-1, 1, 10), np.linspace(0, 1, 10))
+        elif num == 2:
+            return np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-0.75, 0.38, 10))
+        elif num == 3:
+            return np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-0.38, 0.75, 10))
+    elif count == 2:
+        if num == 0:
+            return np.meshgrid(np.linspace(0.38, 1, 10), np.linspace(-1, 1, 10))
+        elif num == 1:
+            return np.meshgrid(np.linspace(0, 1, 10), np.linspace(-1, 1, 10))
+        elif num == 2:
+            return np.meshgrid(np.linspace(-0.38, 0.75, 10), np.linspace(-1, 1, 10))
+        elif num == 3:
+            return np.meshgrid(np.linspace(-0.75, 0.38, 10), np.linspace(-1, 1, 10))
+        elif num == 4:
+            return np.meshgrid(np.linspace(-1, 0, 10), np.linspace(-1, 1, 10))
+        elif num == 5:
+            return np.meshgrid(np.linspace(-1, -0.38, 10), np.linspace(-1, 1, 10))
+
+# creating figure
+fig = plt.figure(figsize=(20, 15))
+ax = Axes3D(fig)
+ax.set_zlim3d(-1, 1)
+# creating the plot
+ax.scatter(x, y, z, color='red')
+# setting title and labels
+ax.set_title("3D plot")
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('z')
+for number, (xs, ys, zs) in enumerate(zip(x, y, z)):
+    label = '%s' % (str(number))
+    ax.text(xs, ys, zs, label, fontsize=16)
+for i, j in all_pairs_new:
+    ax.plot([x[i], x[j]], [y[i], y[j]], [z[i], z[j]], color='black', linestyle='dashed', linewidth=1.5)
+
+for count, data in enumerate(planes_data):
+    previous_point = [0, 0, 0]
+    for num, points in enumerate(data):
+        p0, p1, p2 = points; x0, y0, z0 = p0; x1, y1, z1 = p1; x2, y2, z2 = p2
+        ux, uy, uz = u = [x1-x0, y1-y0, z1-z0]
+        vx, vy, vz = v = [x2-x0, y2-y0, z2-z0]
+        u_cross_v = [uy*vz-uz*vy, uz*vx-ux*vz, ux*vy-uy*vx]
+        point  = np.array(p0)
+        normal = np.array(u_cross_v)
+        if count == 0 or count == 1:
+            d = -point.dot(normal)
+            xx, yy = find_meshgrid(num, count)
+            zz = (-normal[0] * xx - normal[1] * yy - d) * 1. / normal[2]
+        else:
+            d = -point.dot(normal)
+            xx, zz = find_meshgrid(num, count)
+            yy = (-normal[0] * xx - normal[2] * zz - d) * 1. / normal[1]
+        # plot the surface
+        ax.plot_surface(xx, yy, zz, alpha=0.25, color=('magenta' if count == 0 else ('blue' if count == 1 else 'lightgreen')) , vmax=1)
+        dist = (normal[0]**2 + normal[1]**2 + normal[2]**2)**.5
+        normal[0] /= dist
+        normal[1] /= dist
+        normal[2] /= dist
+        dist = abs((previous_point[0]-p0[0])*normal[0] + (previous_point[1]-p0[1])*normal[1] + (previous_point[2]-p0[2])*normal[2])
+        print(dist)
+        previous_point = [x0, y0, z0]
+ax.view_init(5, 5)
+plt.savefig(f'graph.jpg', format='jpg', dpi=300)
+plt.show()

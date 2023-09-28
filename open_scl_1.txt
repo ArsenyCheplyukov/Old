@@ -1,0 +1,9 @@
+from stl import mesh
+import numpy as np
+stl_data = mesh.Mesh.from_file('Rhombic_triacontahedron.stl')
+points = np.around(np.unique(stl_data.vectors.reshape([int(stl_data.vectors.size/3), 3]), axis=0),2)
+bruh_points = points
+points = points.tolist()
+print("Points are:\n")
+for i in points:
+    print(f'{i}')

@@ -1,0 +1,35 @@
+from matplotlib import interactive
+interactive(True)
+%matplotlib inline
+%matplotlib qt
+
+# importing required libraries
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+
+x = bruh_points.T[0]
+y = bruh_points.T[1]
+z = bruh_points.T[2]
+
+# creating figure
+fig = plt.figure(figsize=(15, 15))
+ax = Axes3D(fig)
+# creating the plot
+plot_geeks = ax.scatter(x, y, z, color='red', s=75)
+# setting title and labels
+ax.set_title("3D plot")
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('z')
+
+for num, (xs, ys, zs) in enumerate(zip(x, y, z)):
+    label = '%s' % (str(num))
+    ax.text(xs, ys, zs, label, fontsize=16)
+
+for i, j in all_pairs_new:
+    ax.plot([x[i], x[j]], [y[i], y[j]], [z[i], z[j]], color='black', linestyle='dashed', linewidth=1.5)
+# displaying the plot
+
+ax.view_init(5, 5)
+plt.savefig('graph.jpg', format='jpg', dpi=300)
+plt.show()
